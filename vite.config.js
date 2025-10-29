@@ -4,8 +4,9 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: '0.0.0.0', // 👈 makes it accessible externally (Render needs this)
-    port: Number(process.env.PORT) || 5173, // 👈 use Render's port or fallback
+    host: '0.0.0.0', // Make it accessible to Render
+    port: Number(process.env.PORT) || 5173, // Use Render's PORT
+    allowedHosts: ['hostel-wsdx.onrender.com'], // 👈 Allow your Render domain
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
@@ -15,8 +16,9 @@ export default defineConfig({
     },
   },
   preview: {
-    host: '0.0.0.0', // 👈 also needed for vite preview on Render
+    host: '0.0.0.0',
     port: Number(process.env.PORT) || 5173,
+    allowedHosts: ['hostel-wsdx.onrender.com'], // 👈 Add here too
   },
   optimizeDeps: {
     exclude: ['lucide-react'],
